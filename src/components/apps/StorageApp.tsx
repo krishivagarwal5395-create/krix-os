@@ -1,104 +1,135 @@
-import React, { useState } from 'react';
-import { HardDrive, Trash2, PieChart, Check, ShieldCheck } from 'lucide-react';
+import React, { useEffect, useState } from 'react';
+import { HardDrive, Trash2, PieChart, Check, ShieldCheck, Info, RefreshCw } from 'lucide-react';
 import { useDesktop } from '../../context/DesktopContext';
+
+interface BrowserStorageEstimate {
+  usage?: number;
+  quota?: number;
+}
+
+const formatBytes = (bytes: number) => {
+  if (bytes < 1024) return `${bytes} B`;
+  if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(1)} KB`;
+  if (bytes < 1024 * 1024 * 1024) return `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
+  return `${(bytes / (1024 * 1024 * 1024)).toFixed(2)} GB`;
+};
 
 export const StorageApp: React.FC = () => {
   const { trashFiles, emptyTrash, addNotification } = useDesktop();
   const [cleaned, setCleaned] = useState(false);
+  const [estimate, setEstimate] = useState<BrowserStorageEstimate | null>(null);
+  const [estimateStatus, setEstimateStatus] = useState<'loading' | 'available' | 'unavailable'>('loading');
 
-  const cleanCaches = () => {
-    emptyTrash();
-    setCleaned(true);
-    addNotification('Storage Cleaned', 'Emptied trash and purged temporary render caches.', 'storage');
-    setTimeout(() => setCleaned(false), 2500);
+  const refreshEstimate = async () => {
+    if (!navigator.storage?.estimate) {
+      setEstimateStatus('unavailable');
+      return;
+    }
+    setEstimateStatus('loading');
+    try {
+      const result = await navigator.storage.estimate();
+      setEstimate({ usage: result.usage, quota: result.quota });
+      setEstimateStatus('available');
+    } catch {
+      setEstimateStatus('unavailable');
+    }
   };
 
+  useEffect(() => {
+    void refreshEstimate();
+  }, []);
+
+  const emptyKrixTrash = () => {
+    if (trashFiles.length === 0) return;
+    emptyTrash();
+    setCleaned(true);
+    addNotification('KRIX Trash emptied', 'Removed items from KRIX’s in-app trash. Your Windows Recycle Bin and files are unchanged.', 'storage');
+    window.setTimeout(() => setCleaned(false), 2200);
+  };
+
+  const usagePercent = estimate?.usage && estimate?.quota
+    ? Math.min(100, Math.max(0, (estimate.usage / estimate.quota) * 100))
+    : 0;
+
   return (
-    <div className="flex flex-col h-full w-full bg-slate-900 text-slate-100 font-sans select-none overflow-y-auto p-6 space-y-6">
-      {/* Drive Overview Banner */}
-      <div className="flex items-center justify-between pb-4 border-b border-white/10">
+    <div className="flex h-full w-full flex-col space-y-5 overflow-y-auto bg-slate-950 p-5 font-sans text-slate-100">
+      <header className="flex flex-wrap items-center justify-between gap-3 border-b border-white/10 pb-4">
         <div className="flex items-center gap-3">
-          <div className="p-3 rounded-2xl bg-indigo-600 text-white shadow-xl">
-            <HardDrive size={24} />
+          <div className="rounded-2xl border border-cyan-200/10 bg-gradient-to-br from-cyan-500/20 to-violet-600/20 p-3 text-cyan-100">
+            <HardDrive size={23} />
           </div>
           <div>
-            <h2 className="text-base font-bold text-white">ThinkPad NVMe SSD (C:)</h2>
-            <p className="text-xs text-slate-400">1024 GB Total · 580 GB Free on Windows 11</p>
+            <h2 className="text-base font-bold">Storage</h2>
+            <p className="mt-0.5 text-xs text-slate-400">KRIX app data and in-app trash</p>
           </div>
         </div>
-
-        <button
-          onClick={cleanCaches}
-          className="px-4 py-2 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-xs font-semibold flex items-center gap-1.5 shadow"
-        >
-          {cleaned ? <Check size={14} className="text-emerald-400" /> : <Trash2 size={14} />}
-          <span>{cleaned ? 'Caches Purged' : 'Optimize Storage'}</span>
+        <button onClick={() => void refreshEstimate()} className="flex items-center gap-2 rounded-xl border border-white/10 bg-white/5 px-3 py-2 text-xs text-slate-200 transition hover:bg-white/10">
+          <RefreshCw size={13} /> Refresh
         </button>
+      </header>
+
+      <div className="flex gap-3 rounded-2xl border border-cyan-200/15 bg-cyan-200/[0.05] p-4">
+        <Info size={17} className="mt-0.5 shrink-0 text-cyan-200" />
+        <p className="text-xs leading-relaxed text-slate-300">
+          This is a browser app, so it cannot scan your actual C: drive or delete Windows temporary files. The estimate below is for storage used by this website’s origin, not total disk usage.
+        </p>
       </div>
 
-      {/* Storage Breakdown Multi-bar */}
-      <div className="p-5 rounded-2xl bg-white/5 border border-white/10 space-y-4">
-        <div className="flex justify-between items-center text-xs">
-          <span className="font-semibold text-slate-200">Volume Usage (412 GB of 1024 GB used)</span>
-          <span className="font-mono text-emerald-400 font-bold">580 GB Free</span>
+      <section className="rounded-2xl border border-white/10 bg-white/[0.035] p-5">
+        <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-cyan-200">
+          <PieChart size={15} /> Browser site storage
         </div>
-        <div className="h-4 w-full bg-slate-800 rounded-full overflow-hidden flex">
-          <div className="bg-red-600 h-full w-[25%]" title="Windows 11 OS (256 GB)" />
-          <div className="bg-blue-600 h-full w-[12%]" title="Installed Software (120 GB)" />
-          <div className="bg-amber-500 h-full w-[8%]" title="Personal Documents (80 GB)" />
-          <div className="bg-emerald-500 h-full w-[3%]" title="KRIX Local Ecosystem (2.8 GB)" />
+        {estimateStatus === 'loading' ? (
+          <p className="mt-4 text-sm text-slate-400">Checking browser storage estimate…</p>
+        ) : estimateStatus === 'unavailable' ? (
+          <p className="mt-4 text-sm text-slate-400">Your browser does not expose a storage estimate for this session.</p>
+        ) : (
+          <>
+            <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2">
+              <div className="rounded-xl bg-black/20 p-4">
+                <p className="text-xs text-slate-500">Estimated site usage</p>
+                <p className="mt-1 text-2xl font-semibold tracking-tight text-white">{formatBytes(estimate?.usage ?? 0)}</p>
+              </div>
+              <div className="rounded-xl bg-black/20 p-4">
+                <p className="text-xs text-slate-500">Browser-reported quota</p>
+                <p className="mt-1 text-2xl font-semibold tracking-tight text-white">{estimate?.quota ? formatBytes(estimate.quota) : 'Not reported'}</p>
+              </div>
+            </div>
+            {estimate?.quota ? (
+              <div className="mt-4">
+                <div className="mb-2 flex justify-between text-xs text-slate-400">
+                  <span>Estimated site storage used</span><span>{usagePercent.toFixed(1)}%</span>
+                </div>
+                <div className="h-2 overflow-hidden rounded-full bg-white/10">
+                  <div className="h-full rounded-full bg-gradient-to-r from-cyan-400 to-violet-400 transition-all" style={{ width: `${usagePercent}%` }} />
+                </div>
+              </div>
+            ) : null}
+          </>
+        )}
+      </section>
+
+      <section className="rounded-2xl border border-white/10 bg-white/[0.035] p-5">
+        <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-violet-200">
+          <ShieldCheck size={15} /> KRIX in-app trash
         </div>
-
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-2 text-xs">
-          <div className="p-3 rounded-xl bg-black/30">
-            <div className="flex items-center gap-1.5 text-slate-400 text-[11px]">
-              <span className="w-2 h-2 rounded-full bg-red-600" /> Windows 11 OS
-            </div>
-            <div className="text-sm font-bold text-white mt-1">256.0 GB</div>
-          </div>
-
-          <div className="p-3 rounded-xl bg-black/30">
-            <div className="flex items-center gap-1.5 text-slate-400 text-[11px]">
-              <span className="w-2 h-2 rounded-full bg-blue-600" /> Installed Apps
-            </div>
-            <div className="text-sm font-bold text-white mt-1">120.4 GB</div>
-          </div>
-
-          <div className="p-3 rounded-xl bg-black/30">
-            <div className="flex items-center gap-1.5 text-slate-400 text-[11px]">
-              <span className="w-2 h-2 rounded-full bg-amber-500" /> User Files
-            </div>
-            <div className="text-sm font-bold text-white mt-1">80.2 GB</div>
-          </div>
-
-          <div className="p-3 rounded-xl bg-black/30">
-            <div className="flex items-center gap-1.5 text-slate-400 text-[11px]">
-              <span className="w-2 h-2 rounded-full bg-emerald-500" /> KRIX Core
-            </div>
-            <div className="text-sm font-bold text-emerald-400 mt-1">2.8 GB</div>
-          </div>
-        </div>
-      </div>
-
-      {/* Storage recommendations */}
-      <div className="p-4 rounded-2xl bg-white/5 border border-white/10 space-y-2 text-xs">
-        <h3 className="font-bold text-white text-xs uppercase tracking-wider text-indigo-400">
-          Recommendations
-        </h3>
-        <div className="flex items-center justify-between py-2 border-b border-white/5">
+        <div className="mt-4 flex flex-wrap items-center justify-between gap-4">
           <div>
-            <div className="font-semibold text-white">Empty KRIX Trash Bin</div>
-            <div className="text-slate-400 text-[11px]">Recover storage from {trashFiles.length} deleted items</div>
+            <p className="text-lg font-semibold text-white">{trashFiles.length} {trashFiles.length === 1 ? 'item' : 'items'}</p>
+            <p className="mt-1 text-xs text-slate-400">Items moved to KRIX Trash. This is separate from the Windows Recycle Bin.</p>
           </div>
           <button
-            onClick={emptyTrash}
+            onClick={emptyKrixTrash}
             disabled={trashFiles.length === 0}
-            className="px-3 py-1 rounded-lg bg-white/10 hover:bg-white/20 text-slate-200 disabled:opacity-40"
+            className="flex items-center gap-2 rounded-xl bg-violet-500/90 px-4 py-2.5 text-xs font-semibold text-white transition hover:bg-violet-400 disabled:cursor-not-allowed disabled:opacity-40"
           >
-            Empty Trash
+            {cleaned ? <Check size={14} /> : <Trash2 size={14} />}
+            {cleaned ? 'KRIX Trash emptied' : 'Empty KRIX Trash'}
           </button>
         </div>
-      </div>
+      </section>
+
+      <p className="text-center text-[11px] text-slate-500">Native drive cleanup can be added only through a separately installed Windows companion with clear permissions and a confirmation step.</p>
     </div>
   );
 };
