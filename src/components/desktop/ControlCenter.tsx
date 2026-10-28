@@ -7,8 +7,6 @@ import {
   Volume2, 
   Keyboard, 
   Share2, 
-  Fan, 
-  BatteryCharging, 
   Sliders 
 } from 'lucide-react';
 import { useDesktop } from '../../context/DesktopContext';
@@ -24,7 +22,7 @@ export const ControlCenter: React.FC = () => {
       onClick={() => toggleControlCenter(false)}
     >
       <div 
-        className="absolute top-9 right-3 w-80 rounded-2xl bg-slate-900/90 dark:bg-slate-950/95 border border-white/15 p-4 shadow-2xl backdrop-blur-2xl text-slate-200 space-y-3.5"
+        className="absolute top-9 right-3 w-80 rounded-2xl bg-white/88 dark:bg-[#242426]/92 border border-black/10 dark:border-white/10 p-4 shadow-2xl backdrop-blur-2xl text-slate-800 dark:text-slate-100 space-y-3.5"
         onClick={(e) => e.stopPropagation()}
       >
         <div className="flex items-center justify-between pb-1 border-b border-white/10">
@@ -34,7 +32,7 @@ export const ControlCenter: React.FC = () => {
               openApp('settings');
               toggleControlCenter(false);
             }}
-            className="text-xs text-red-400 hover:text-red-300 transition-colors"
+            className="text-xs text-blue-600 dark:text-blue-400 hover:opacity-80 transition-colors"
           >
             Preferences
           </button>
@@ -48,8 +46,8 @@ export const ControlCenter: React.FC = () => {
               <Wifi size={16} />
             </div>
             <div className="truncate">
-              <div className="text-xs font-medium text-white truncate">Wi-Fi 6E</div>
-              <div className="text-[10px] text-slate-400 truncate">ThinkPad-Net</div>
+              <div className="text-xs font-medium text-white truncate">Wi-Fi</div>
+              <div className="text-[10px] text-slate-400 truncate">Network status unavailable</div>
             </div>
           </div>
 
@@ -95,7 +93,7 @@ export const ControlCenter: React.FC = () => {
           <div className="flex items-center justify-between text-xs">
             <div className="flex items-center gap-1.5 text-slate-300">
               <Sun size={14} />
-              <span>OLED Display</span>
+              <span>Display brightness</span>
             </div>
             <span className="font-mono text-slate-400">{settings.displayBrightness}%</span>
           </div>
@@ -105,7 +103,7 @@ export const ControlCenter: React.FC = () => {
             max="100"
             value={settings.displayBrightness}
             onChange={(e) => updateSettings({ displayBrightness: Number(e.target.value) })}
-            className="w-full accent-red-600 cursor-pointer h-1.5 bg-slate-700 rounded-lg"
+            className="w-full accent-blue-500 cursor-pointer h-1.5 bg-slate-700 rounded-lg"
           />
         </div>
 
@@ -128,46 +126,10 @@ export const ControlCenter: React.FC = () => {
           />
         </div>
 
-        {/* Lenovo ThinkPad Dedicated Hardware Profile */}
-        <div className="p-3 rounded-xl bg-red-950/40 border border-red-500/20 space-y-2">
-          <div className="flex items-center justify-between text-xs font-semibold text-red-200">
-            <div className="flex items-center gap-1.5">
-              <Fan size={14} className="text-red-400 animate-spin-slow" />
-              <span>ThinkPad Thermal Profile</span>
-            </div>
-            <span className="capitalize text-[11px] font-mono text-red-400">
-              {settings.thinkpadCoolingProfile}
-            </span>
-          </div>
-
-          <div className="grid grid-cols-3 gap-1 pt-1">
-            {(['quiet', 'balanced', 'performance'] as const).map((profile) => (
-              <button
-                key={profile}
-                onClick={() => updateSettings({ thinkpadCoolingProfile: profile })}
-                className={`py-1 text-[11px] font-medium rounded-lg capitalize transition-colors ${
-                  settings.thinkpadCoolingProfile === profile
-                    ? 'bg-red-600 text-white shadow-sm'
-                    : 'bg-white/5 text-slate-300 hover:bg-white/10'
-                }`}
-              >
-                {profile}
-              </button>
-            ))}
-          </div>
-
-          <div className="flex items-center justify-between pt-1 text-[11px] text-slate-300">
-            <span className="flex items-center gap-1">
-              <BatteryCharging size={12} className="text-emerald-400" />
-              <span>RapidCharge (80% in 60m)</span>
-            </span>
-            <input
-              type="checkbox"
-              checked={settings.thinkpadRapidCharge}
-              onChange={(e) => updateSettings({ thinkpadRapidCharge: e.target.checked })}
-              className="accent-red-600 rounded"
-            />
-          </div>
+        <div className="rounded-xl border border-black/5 dark:border-white/10 bg-black/[0.03] dark:bg-white/[0.05] p-3">
+          <div className="text-xs font-semibold mb-1">KRIX quick settings</div>
+          <p className="text-[11px] leading-relaxed text-slate-500 dark:text-slate-400">These controls adjust the KRIX desktop interface only. Wi-Fi, Bluetooth, physical display brightness, speaker volume and battery settings remain managed by your device.</p>
+        </div>
         </div>
       </div>
     </div>
