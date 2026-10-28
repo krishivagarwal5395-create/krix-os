@@ -64,7 +64,7 @@ export const Launchpad: React.FC = () => {
 
   return (
     <div 
-      className="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-3xl flex flex-col items-center select-none pt-12 pb-16 px-6 animate-fade-in overflow-y-auto"
+      className="fixed inset-0 z-50 bg-black/55 backdrop-blur-3xl flex flex-col items-center select-none pt-12 pb-16 px-6 animate-fade-in overflow-y-auto"
       onClick={() => toggleLaunchpad(false)}
     >
       {/* Top Header: Search Bar & Close */}
@@ -83,7 +83,7 @@ export const Launchpad: React.FC = () => {
               setSearchQuery(e.target.value);
               setSelectedIndex(0);
             }}
-            className="w-full bg-slate-800/80 border border-white/15 rounded-2xl pl-10 pr-10 py-2.5 text-sm text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-red-500/50 backdrop-blur-md shadow-xl transition-all"
+            className="w-full bg-white/14 dark:bg-white/10 border border-white/20 rounded-2xl pl-10 pr-10 py-2.5 text-sm text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-400/50 backdrop-blur-md shadow-xl transition-all"
           />
           {searchQuery && (
             <button
@@ -106,7 +106,7 @@ export const Launchpad: React.FC = () => {
               }}
               className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${
                 activeCategory === cat.id
-                  ? 'bg-red-600 text-white shadow-md'
+                  ? 'bg-blue-500 text-white shadow-md'
                   : 'text-slate-300 hover:text-white hover:bg-white/10'
               }`}
             >
@@ -133,7 +133,7 @@ export const Launchpad: React.FC = () => {
                 toggleLaunchpad(false);
               }}
               className={`group flex flex-col items-center text-center p-2 rounded-2xl transition-all duration-150 relative ${
-                isSelected ? 'ring-2 ring-red-500/80 bg-white/10' : 'hover:bg-white/5'
+                isSelected ? 'ring-2 ring-blue-400/80 bg-white/10' : 'hover:bg-white/5'
               }`}
             >
               <div className="relative transform transition-transform group-hover:scale-110 duration-200">
