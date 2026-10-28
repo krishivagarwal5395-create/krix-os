@@ -62,10 +62,10 @@ export const MenuBar: React.FC = () => {
   }, []);
 
   return (
-    <header className="relative z-50 h-7 w-full bg-slate-900/75 dark:bg-slate-950/80 backdrop-blur-md border-b border-white/10 text-white text-[13px] px-3 flex items-center justify-between select-none">
+    <header className="relative z-50 h-7 w-full bg-white/72 dark:bg-black/45 backdrop-blur-2xl border-b border-black/10 dark:border-white/10 text-slate-900 dark:text-white text-[13px] shadow-sm px-3 flex items-center justify-between select-none">
       {/* Left zone: Brand logo + Active App Menus */}
       <div className="flex items-center gap-4">
-        {/* KRIX ThinkPad Apple-style logo button */}
+        {/* KRIX macOS-inspired KRIX menu button */}
         <div className="relative">
           <button
             onClick={(e) => {
@@ -77,10 +77,10 @@ export const MenuBar: React.FC = () => {
             className="flex items-center gap-1 px-1.5 py-0.5 rounded hover:bg-white/15 transition-colors focus-visible:outline-none"
             aria-label="KRIX System Menu"
           >
-            {/* Custom stylized KRIX Monogram with red ThinkPad dot */}
+            {/* Custom stylized KRIX Monogram with blue KRIX accent */}
             <div className="relative flex items-center justify-center font-bold tracking-tighter text-xs">
               <span className="text-white font-mono">KR</span>
-              <span className="w-1.5 h-1.5 rounded-full bg-red-600 inline-block mx-0.5 shadow-sm"></span>
+              <span className="w-1.5 h-1.5 rounded-full bg-blue-600 inline-block mx-0.5 shadow-sm"></span>
               <span className="text-white font-mono">IX</span>
             </div>
           </button>
@@ -88,7 +88,7 @@ export const MenuBar: React.FC = () => {
           {/* KRIX System Menu Dropdown */}
           {isAppleMenuOpen && (
             <div 
-              className="absolute left-0 top-7 w-60 rounded-xl bg-slate-900/95 dark:bg-slate-950/95 border border-white/15 shadow-2xl py-1 backdrop-blur-xl text-slate-200 z-50"
+              className="absolute left-0 top-7 w-60 rounded-xl bg-white/90 dark:bg-[#242426]/92 border border-black/10 dark:border-white/10 shadow-2xl py-1 backdrop-blur-2xl text-slate-800 dark:text-slate-100 z-50"
               onClick={(e) => e.stopPropagation()}
             >
               <button
@@ -96,17 +96,17 @@ export const MenuBar: React.FC = () => {
                   openApp('systeminfo');
                   setIsAppleMenuOpen(false);
                 }}
-                className="w-full text-left px-3.5 py-1.5 hover:bg-red-600 hover:text-white flex items-center gap-2 rounded-lg mx-1"
+                className="w-full text-left px-3.5 py-1.5 hover:bg-blue-600 hover:text-white flex items-center gap-2 rounded-lg mx-1"
               >
                 <Info size={14} />
-                <span>About This ThinkPad</span>
+                <span>About This Mac</span>
               </button>
               <button
                 onClick={() => {
                   openApp('settings');
                   setIsAppleMenuOpen(false);
                 }}
-                className="w-full text-left px-3.5 py-1.5 hover:bg-red-600 hover:text-white flex items-center gap-2 rounded-lg mx-1"
+                className="w-full text-left px-3.5 py-1.5 hover:bg-blue-600 hover:text-white flex items-center gap-2 rounded-lg mx-1"
               >
                 <Settings size={14} />
                 <span>System Settings...</span>
@@ -116,10 +116,10 @@ export const MenuBar: React.FC = () => {
                   openApp('applibrary');
                   setIsAppleMenuOpen(false);
                 }}
-                className="w-full text-left px-3.5 py-1.5 hover:bg-red-600 hover:text-white flex items-center gap-2 rounded-lg mx-1"
+                className="w-full text-left px-3.5 py-1.5 hover:bg-blue-600 hover:text-white flex items-center gap-2 rounded-lg mx-1"
               >
                 <Grid size={14} />
-                <span>App Library & Windows 11</span>
+                <span>App Library</span>
               </button>
               
               <div className="h-px bg-white/10 my-1 mx-2" />
@@ -129,7 +129,7 @@ export const MenuBar: React.FC = () => {
                   toggleLaunchpad(true);
                   setIsAppleMenuOpen(false);
                 }}
-                className="w-full text-left px-3.5 py-1.5 hover:bg-red-600 hover:text-white flex items-center justify-between rounded-lg mx-1"
+                className="w-full text-left px-3.5 py-1.5 hover:bg-blue-600 hover:text-white flex items-center justify-between rounded-lg mx-1"
               >
                 <span>Launchpad</span>
                 <span className="text-[11px] text-slate-400">F4</span>
@@ -139,7 +139,7 @@ export const MenuBar: React.FC = () => {
                   toggleSpotlight(true);
                   setIsAppleMenuOpen(false);
                 }}
-                className="w-full text-left px-3.5 py-1.5 hover:bg-red-600 hover:text-white flex items-center justify-between rounded-lg mx-1"
+                className="w-full text-left px-3.5 py-1.5 hover:bg-blue-600 hover:text-white flex items-center justify-between rounded-lg mx-1"
               >
                 <span>Spotlight Search</span>
                 <span className="text-[11px] text-slate-400">⌘ Space</span>
@@ -152,7 +152,7 @@ export const MenuBar: React.FC = () => {
                   if (activeWindowId) closeWindow(activeWindowId);
                   setIsAppleMenuOpen(false);
                 }}
-                className="w-full text-left px-3.5 py-1.5 hover:bg-red-600 hover:text-white flex items-center justify-between rounded-lg mx-1"
+                className="w-full text-left px-3.5 py-1.5 hover:bg-blue-600 hover:text-white flex items-center justify-between rounded-lg mx-1"
               >
                 <span>Close Active Window</span>
                 <span className="text-[11px] text-slate-400">⌘ W</span>
@@ -161,17 +161,17 @@ export const MenuBar: React.FC = () => {
                 onClick={() => {
                   window.location.reload();
                 }}
-                className="w-full text-left px-3.5 py-1.5 hover:bg-red-600 hover:text-white flex items-center gap-2 rounded-lg mx-1"
+                className="w-full text-left px-3.5 py-1.5 hover:bg-blue-600 hover:text-white flex items-center gap-2 rounded-lg mx-1"
               >
                 <RotateCw size={14} />
                 <span>Restart KRIX Desktop</span>
               </button>
               <button
                 onClick={() => {
-                  alert('ThinkPad Session Protected: Windows 11 Lock Screen active');
+                  alert('KRIX session locked (simulated in this web app).');
                   setIsAppleMenuOpen(false);
                 }}
-                className="w-full text-left px-3.5 py-1.5 hover:bg-red-600 hover:text-white flex items-center gap-2 rounded-lg mx-1"
+                className="w-full text-left px-3.5 py-1.5 hover:bg-blue-600 hover:text-white flex items-center gap-2 rounded-lg mx-1"
               >
                 <Lock size={14} />
                 <span>Lock Screen (Win + L)</span>
@@ -216,7 +216,7 @@ export const MenuBar: React.FC = () => {
                           else openApp('finder');
                           setActiveMenuDropdown(null);
                         }}
-                        className="w-full text-left px-3.5 py-1.5 hover:bg-red-600 hover:text-white flex items-center justify-between rounded-lg mx-1"
+                        className="w-full text-left px-3.5 py-1.5 hover:bg-blue-600 hover:text-white flex items-center justify-between rounded-lg mx-1"
                       >
                         <span>New Item</span>
                         <span className="text-[11px] text-slate-400">⌘ N</span>
@@ -226,7 +226,7 @@ export const MenuBar: React.FC = () => {
                           if (activeWindowId) closeWindow(activeWindowId);
                           setActiveMenuDropdown(null);
                         }}
-                        className="w-full text-left px-3.5 py-1.5 hover:bg-red-600 hover:text-white flex items-center justify-between rounded-lg mx-1"
+                        className="w-full text-left px-3.5 py-1.5 hover:bg-blue-600 hover:text-white flex items-center justify-between rounded-lg mx-1"
                       >
                         <span>Close Window</span>
                         <span className="text-[11px] text-slate-400">⌘ W</span>
@@ -237,19 +237,19 @@ export const MenuBar: React.FC = () => {
                     <>
                       <button
                         onClick={() => setActiveMenuDropdown(null)}
-                        className="w-full text-left px-3.5 py-1.5 hover:bg-red-600 hover:text-white rounded-lg mx-1"
+                        className="w-full text-left px-3.5 py-1.5 hover:bg-blue-600 hover:text-white rounded-lg mx-1"
                       >
                         Undo (⌘ Z)
                       </button>
                       <button
                         onClick={() => setActiveMenuDropdown(null)}
-                        className="w-full text-left px-3.5 py-1.5 hover:bg-red-600 hover:text-white rounded-lg mx-1"
+                        className="w-full text-left px-3.5 py-1.5 hover:bg-blue-600 hover:text-white rounded-lg mx-1"
                       >
                         Redo (⌘ ⇧ Z)
                       </button>
                       <button
                         onClick={() => setActiveMenuDropdown(null)}
-                        className="w-full text-left px-3.5 py-1.5 hover:bg-red-600 hover:text-white rounded-lg mx-1"
+                        className="w-full text-left px-3.5 py-1.5 hover:bg-blue-600 hover:text-white rounded-lg mx-1"
                       >
                         Select All (⌘ A)
                       </button>
@@ -262,7 +262,7 @@ export const MenuBar: React.FC = () => {
                           toggleNotificationCenter();
                           setActiveMenuDropdown(null);
                         }}
-                        className="w-full text-left px-3.5 py-1.5 hover:bg-red-600 hover:text-white rounded-lg mx-1"
+                        className="w-full text-left px-3.5 py-1.5 hover:bg-blue-600 hover:text-white rounded-lg mx-1"
                       >
                         Toggle Widgets Panel
                       </button>
@@ -271,7 +271,7 @@ export const MenuBar: React.FC = () => {
                           toggleLaunchpad();
                           setActiveMenuDropdown(null);
                         }}
-                        className="w-full text-left px-3.5 py-1.5 hover:bg-red-600 hover:text-white rounded-lg mx-1"
+                        className="w-full text-left px-3.5 py-1.5 hover:bg-blue-600 hover:text-white rounded-lg mx-1"
                       >
                         Open Launchpad (F4)
                       </button>
@@ -284,7 +284,7 @@ export const MenuBar: React.FC = () => {
                           if (activeWindowId) closeWindow(activeWindowId);
                           setActiveMenuDropdown(null);
                         }}
-                        className="w-full text-left px-3.5 py-1.5 hover:bg-red-600 hover:text-white rounded-lg mx-1"
+                        className="w-full text-left px-3.5 py-1.5 hover:bg-blue-600 hover:text-white rounded-lg mx-1"
                       >
                         Minimize
                       </button>
@@ -293,7 +293,7 @@ export const MenuBar: React.FC = () => {
                           openApp('activitymonitor');
                           setActiveMenuDropdown(null);
                         }}
-                        className="w-full text-left px-3.5 py-1.5 hover:bg-red-600 hover:text-white rounded-lg mx-1"
+                        className="w-full text-left px-3.5 py-1.5 hover:bg-blue-600 hover:text-white rounded-lg mx-1"
                       >
                         Activity Monitor
                       </button>
@@ -306,7 +306,7 @@ export const MenuBar: React.FC = () => {
                           openApp('intelligence', { prompt: `How do I use ${activeAppName}?` });
                           setActiveMenuDropdown(null);
                         }}
-                        className="w-full text-left px-3.5 py-1.5 hover:bg-red-600 hover:text-white rounded-lg mx-1"
+                        className="w-full text-left px-3.5 py-1.5 hover:bg-blue-600 hover:text-white rounded-lg mx-1"
                       >
                         Ask KRIX Intelligence
                       </button>
@@ -315,9 +315,9 @@ export const MenuBar: React.FC = () => {
                           openApp('systeminfo');
                           setActiveMenuDropdown(null);
                         }}
-                        className="w-full text-left px-3.5 py-1.5 hover:bg-red-600 hover:text-white rounded-lg mx-1"
+                        className="w-full text-left px-3.5 py-1.5 hover:bg-blue-600 hover:text-white rounded-lg mx-1"
                       >
-                        ThinkPad System Diagnostics
+                        KRIX System Information
                       </button>
                     </>
                   )}
@@ -330,7 +330,7 @@ export const MenuBar: React.FC = () => {
 
       {/* Right zone: System Status Toggles & Clock */}
       <div className="flex items-center gap-3">
-        {/* ThinkPad Battery & RapidCharge Indicator */}
+        {/* KRIX Battery & RapidCharge Indicator */}
         <div className="relative">
           <button
             onClick={(e) => {
@@ -340,7 +340,7 @@ export const MenuBar: React.FC = () => {
               setActiveMenuDropdown(null);
             }}
             className="flex items-center gap-1.5 px-1.5 py-0.5 rounded hover:bg-white/15 transition-colors focus-visible:outline-none"
-            title="Lenovo ThinkPad Battery: 88% RapidCharge Active"
+            title="Lenovo KRIX battery status is unavailable in this browser build"
           >
             <span className="text-[11px] font-mono tabular-nums text-slate-200">88%</span>
             <BatteryCharging size={16} className="text-emerald-400" />
@@ -352,7 +352,7 @@ export const MenuBar: React.FC = () => {
               onClick={(e) => e.stopPropagation()}
             >
               <div className="flex items-center justify-between pb-2 border-b border-white/10 font-medium">
-                <span>ThinkPad Power Status</span>
+                <span>Power Status</span>
                 <span className="text-emerald-400 font-semibold">88% Charged</span>
               </div>
               <div className="mt-2.5 space-y-1.5 text-slate-300">
@@ -362,7 +362,7 @@ export const MenuBar: React.FC = () => {
                 </div>
                 <div className="flex justify-between">
                   <span>Lenovo RapidCharge:</span>
-                  <span className="text-red-400 font-semibold">Active (80% in 60m)</span>
+                  <span className="text-blue-400 font-semibold">Not available in browser</span>
                 </div>
                 <div className="flex justify-between">
                   <span>Battery Health:</span>
@@ -390,7 +390,7 @@ export const MenuBar: React.FC = () => {
         <button
           onClick={() => openApp('settings')}
           className="p-1 rounded hover:bg-white/15 transition-colors focus-visible:outline-none"
-          title="Wi-Fi 6E: Connected to ThinkPad-UltraFast"
+          title="Network status is provided by your browser"
         >
           <Wifi size={14} className="text-white/90" />
         </button>
