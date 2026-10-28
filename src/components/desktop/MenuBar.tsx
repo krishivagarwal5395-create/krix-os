@@ -330,7 +330,7 @@ export const MenuBar: React.FC = () => {
 
       {/* Right zone: System Status Toggles & Clock */}
       <div className="flex items-center gap-3">
-        {/* KRIX Battery & RapidCharge Indicator */}
+        {/* Power menu — live hardware readings are not exposed by this web build */}
         <div className="relative">
           <button
             onClick={(e) => {
@@ -342,37 +342,16 @@ export const MenuBar: React.FC = () => {
             className="flex items-center gap-1.5 px-1.5 py-0.5 rounded hover:bg-white/15 transition-colors focus-visible:outline-none"
             title="Lenovo KRIX battery status is unavailable in this browser build"
           >
-            <span className="text-[11px] font-mono tabular-nums text-slate-200">88%</span>
-            <BatteryCharging size={16} className="text-emerald-400" />
+            <Battery size={16} className="text-slate-700 dark:text-slate-200" />
           </button>
 
           {isBatteryMenuOpen && (
             <div 
-              className="absolute right-0 top-7 w-64 rounded-xl bg-slate-900/95 dark:bg-slate-950/95 border border-white/15 shadow-2xl p-3.5 backdrop-blur-xl text-slate-200 z-50 text-xs"
+              className="absolute right-0 top-7 w-64 rounded-xl bg-white/90 dark:bg-[#242426]/95 border border-black/10 dark:border-white/10 shadow-2xl p-3.5 backdrop-blur-2xl text-slate-800 dark:text-slate-100 z-50 text-xs"
               onClick={(e) => e.stopPropagation()}
             >
-              <div className="flex items-center justify-between pb-2 border-b border-white/10 font-medium">
-                <span>Power Status</span>
-                <span className="text-emerald-400 font-semibold">88% Charged</span>
-              </div>
-              <div className="mt-2.5 space-y-1.5 text-slate-300">
-                <div className="flex justify-between">
-                  <span>Power Source:</span>
-                  <span className="text-white font-medium">65W AC Adapter</span>
-                </div>
-                <div className="flex justify-between">
-                  <span>Lenovo RapidCharge:</span>
-                  <span className="text-blue-400 font-semibold">Not available in browser</span>
-                </div>
-                <div className="flex justify-between">
-                  <span>Battery Health:</span>
-                  <span className="text-emerald-400 font-medium">98% (42 cycles)</span>
-                </div>
-                <div className="flex justify-between">
-                  <span>Time to Full:</span>
-                  <span className="text-white font-medium">Approx 18 minutes</span>
-                </div>
-              </div>
+              <div className="font-semibold text-slate-800 dark:text-slate-100">Power information</div>
+              <p className="mt-2 leading-relaxed text-slate-600 dark:text-slate-300">KRIX runs in your browser and cannot read your Mac or PC battery level, charging state, or battery health. Check your device's system settings for live readings.</p>
               <button
                 onClick={() => {
                   openApp('settings');
