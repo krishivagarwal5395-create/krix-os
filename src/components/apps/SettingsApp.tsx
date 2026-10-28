@@ -109,8 +109,8 @@ export const SettingsApp: React.FC = () => {
 
         {/* ThinkPad Hardware Info Banner at bottom */}
         <div className="p-3 border-t border-slate-300 dark:border-white/10 text-[11px] text-slate-500 dark:text-slate-400 flex items-center justify-between">
-          <span>ThinkPad X1 Carbon</span>
-          <span className="font-mono text-emerald-400">Windows 11</span>
+          <span>KRIX Desktop</span>
+          <span className="font-mono text-emerald-400">Web build</span>
         </div>
       </div>
 
@@ -378,7 +378,7 @@ export const SettingsApp: React.FC = () => {
             <div>
               <h2 className="text-xl font-bold text-slate-900 dark:text-white">Sound & Input</h2>
               <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
-                Lenovo ThinkPad UltraNav TrackPoint, audio levels, and microphone permissions.
+                Adjust KRIX preferences. These controls do not change Windows hardware or system audio.
               </p>
             </div>
 
@@ -428,15 +428,15 @@ export const SettingsApp: React.FC = () => {
             <div>
               <h2 className="text-xl font-bold text-slate-900 dark:text-white">Storage Analysis</h2>
               <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
-                Physical Windows 11 NVMe SSD breakdown and KRIX managed space.
+                Browser storage estimates and KRIX in-app trash. Physical drive statistics are not available in this web build.
               </p>
             </div>
 
             {/* Physical Windows SSD Breakdown */}
             <div className="p-4 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-white/10 space-y-3">
               <div className="flex justify-between items-center text-xs">
-                <span className="font-semibold text-slate-900 dark:text-white">Windows SSD (C:) — 1024 GB NVMe PCIe Gen4</span>
-                <span className="font-mono text-slate-400">412 GB Used / 612 GB Free</span>
+                <span className="font-semibold text-slate-900 dark:text-white">Website storage (browser estimate only)</span>
+                <span className="font-mono text-slate-400">Not a physical drive reading</span>
               </div>
               <div className="h-3 w-full bg-slate-200 dark:bg-slate-800 rounded-full overflow-hidden flex">
                 <div className="bg-red-600 h-full w-[25%]" title="Windows 11 OS (256 GB)" />
@@ -468,7 +468,7 @@ export const SettingsApp: React.FC = () => {
             <div>
               <h2 className="text-xl font-bold text-slate-900 dark:text-white">KRIX Intelligence (Gemini AI)</h2>
               <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
-                Gemini 3.8 Flash model configuration, voice synthesis, and privacy controls.
+                Voice playback and server-side Gemini configuration.
               </p>
             </div>
 
@@ -476,10 +476,10 @@ export const SettingsApp: React.FC = () => {
               <div className="flex items-center justify-between">
                 <div>
                   <div className="text-xs font-semibold text-slate-900 dark:text-white">Gemini Model</div>
-                  <div className="text-[11px] text-slate-500">Google GenAI TypeScript SDK proxy backend</div>
+                  <div className="text-[11px] text-slate-500">Model is selected by the server's GEMINI_MODEL environment variable</div>
                 </div>
                 <span className="px-2.5 py-1 rounded-lg bg-purple-500/20 text-purple-400 text-xs font-mono font-semibold">
-                  gemini-3.8-flash
+                  server configured
                 </span>
               </div>
 
@@ -513,26 +513,26 @@ export const SettingsApp: React.FC = () => {
             <div>
               <h2 className="text-xl font-bold text-slate-900 dark:text-white">System Diagnostics</h2>
               <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
-                Verified Lenovo ThinkPad hardware and Windows 11 host operating system.
+                This browser build reports app preferences, not verified host hardware.
               </p>
             </div>
 
             <div className="p-4 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-white/10 space-y-2 text-xs divide-y divide-slate-100 dark:divide-white/5">
               <div className="flex justify-between py-2">
                 <span className="text-slate-500">Device Model:</span>
-                <span className="font-semibold text-slate-900 dark:text-white">Lenovo ThinkPad X1 Carbon Gen 11</span>
+                <span className="font-semibold text-slate-900 dark:text-white">Lenovo KRIX Desktop Gen 11</span>
               </div>
               <div className="flex justify-between py-2">
                 <span className="text-slate-500">Host OS:</span>
-                <span className="font-semibold text-slate-900 dark:text-white">Windows 11 Pro 64-bit (23H2 Build 22631.3880)</span>
+                <span className="font-semibold text-slate-900 dark:text-white">Not available in browser build</span>
               </div>
               <div className="flex justify-between py-2">
                 <span className="text-slate-500">Processor:</span>
-                <span className="font-semibold text-slate-900 dark:text-white">13th Gen Intel(R) Core(TM) i7-1365U</span>
+                <span className="font-semibold text-slate-900 dark:text-white">Not available in browser build</span>
               </div>
               <div className="flex justify-between py-2">
                 <span className="text-slate-500">Installed RAM:</span>
-                <span className="font-semibold text-slate-900 dark:text-white">32.0 GB LPDDR5-6400MHz</span>
+                <span className="font-semibold text-slate-900 dark:text-white">Not available in browser build</span>
               </div>
               <div className="flex justify-between py-2">
                 <span className="text-slate-500">KRIX Desktop Version:</span>
@@ -564,7 +564,7 @@ export const SettingsApp: React.FC = () => {
             <div>
               <h2 className="text-xl font-bold text-slate-900 dark:text-white capitalize">{activeTab} Preferences</h2>
               <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
-                Hardware integration and privacy permissions for Windows 11.
+                Browser capability and app preferences. Device-level permissions are controlled by your browser and operating system.
               </p>
             </div>
 
