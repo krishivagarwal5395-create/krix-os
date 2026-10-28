@@ -176,7 +176,7 @@ export const Dock: React.FC = () => {
             }`}>
               <Trash2 size={20} className={trashFiles.length > 0 ? 'text-amber-400' : 'text-slate-300'} />
               {trashFiles.length > 0 && (
-                <span className="absolute -top-1 -right-1 bg-red-600 text-white text-[9px] font-bold px-1 rounded-full">
+                <span className="absolute -top-1 -right-1 bg-blue-500 text-white text-[9px] font-bold px-1 rounded-full">
                   {trashFiles.length}
                 </span>
               )}
@@ -190,7 +190,7 @@ export const Dock: React.FC = () => {
 
       {/* Floating Tooltip above dock */}
       {tooltipApp && (
-        <div className="absolute -top-10 left-1/2 -translate-x-1/2 px-2.5 py-1 rounded-md bg-slate-900/90 text-white text-xs font-medium border border-white/10 shadow-lg pointer-events-none whitespace-nowrap backdrop-blur-md">
+        <div className="absolute -top-10 left-1/2 -translate-x-1/2 px-2.5 py-1 rounded-md bg-black/70 dark:bg-[#242426]/90 text-white text-xs font-medium border border-white/10 shadow-lg pointer-events-none whitespace-nowrap backdrop-blur-md">
           {tooltipApp}
         </div>
       )}
