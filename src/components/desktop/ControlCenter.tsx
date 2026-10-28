@@ -58,7 +58,7 @@ export const ControlCenter: React.FC = () => {
             </div>
             <div className="truncate">
               <div className="text-xs font-medium text-white truncate">Bluetooth</div>
-              <div className="text-[10px] text-slate-400 truncate">UltraNav Mouse</div>
+              <div className="text-[10px] text-slate-400 truncate">Device-managed</div>
             </div>
           </div>
 
@@ -69,7 +69,7 @@ export const ControlCenter: React.FC = () => {
             </div>
             <div className="truncate">
               <div className="text-xs font-medium text-white truncate">QuickShare</div>
-              <div className="text-[10px] text-slate-400 truncate">Contacts Only</div>
+              <div className="text-[10px] text-slate-400 truncate">KRIX interface</div>
             </div>
           </div>
 
@@ -122,7 +122,7 @@ export const ControlCenter: React.FC = () => {
             max="100"
             value={settings.masterVolume}
             onChange={(e) => updateSettings({ masterVolume: Number(e.target.value) })}
-            className="w-full accent-red-600 cursor-pointer h-1.5 bg-slate-700 rounded-lg"
+            className="w-full accent-blue-500 cursor-pointer h-1.5 bg-slate-700 rounded-lg"
           />
         </div>
 
