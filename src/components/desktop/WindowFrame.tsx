@@ -117,7 +117,7 @@ export const WindowFrame: React.FC<WindowFrameProps> = ({ window: win, children 
       ref={windowRef}
       style={style}
       onMouseDown={() => focusWindow(win.id)}
-      className={`flex flex-col rounded-xl overflow-hidden glass-window border transition-shadow duration-150 ${
+      className={`flex flex-col rounded-xl overflow-hidden glass-window border transition-shadow duration-200 ${
         isFocused 
           ? 'border-white/20 shadow-2xl dark:border-white/15' 
           : 'border-white/10 opacity-95 shadow-lg dark:border-white/5'
@@ -127,7 +127,7 @@ export const WindowFrame: React.FC<WindowFrameProps> = ({ window: win, children 
       <div
         onMouseDown={handleMouseDownHeader}
         onDoubleClick={() => maximizeWindow(win.id)}
-        className="h-10 px-3.5 bg-slate-100/90 dark:bg-slate-900/90 backdrop-blur-xl border-b border-black/5 dark:border-white/10 flex items-center justify-between select-none cursor-default shrink-0"
+        className="h-10 px-3.5 bg-[#f5f5f7]/95 dark:bg-[#2c2c2e]/95 backdrop-blur-2xl border-b border-black/10 dark:border-white/10 flex items-center justify-between select-none cursor-default shrink-0"
       >
         {/* Left: macOS Traffic Light Controls */}
         <div className="flex items-center gap-2 group/lights">
@@ -179,7 +179,7 @@ export const WindowFrame: React.FC<WindowFrameProps> = ({ window: win, children 
       </div>
 
       {/* Window Body */}
-      <div className="flex-1 bg-white/95 dark:bg-slate-950/95 overflow-hidden flex flex-col relative text-slate-900 dark:text-slate-100">
+      <div className="flex-1 bg-[#fbfbfd]/98 dark:bg-[#1c1c1e]/98 overflow-hidden flex flex-col relative text-slate-900 dark:text-slate-100">
         {children}
       </div>
 
